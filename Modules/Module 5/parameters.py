@@ -26,3 +26,4 @@ names = ["Nick", "Jane", "Sara"]
 
 for name in names:
     print(uppercase(name))
+    
