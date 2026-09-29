@@ -2,7 +2,7 @@ def check_number(number):
     if (number & 1) == 0:
         return "even"
     else:
-        return "ood"
+        return "odd"
 
 number_input = int(input("Enter a whole number: "))
 
