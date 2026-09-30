@@ -5,7 +5,7 @@ sensor = HS3003()
 
 # This gives all the options to choose from
 while True:
-    print("Please choose from the follow options: ")
+    print("Please choose from the following options: ")
     print("T - Temperature")
     print("H - Humidity")
     print("0 - Both")
