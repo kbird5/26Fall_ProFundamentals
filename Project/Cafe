@@ -21,16 +21,17 @@ greet(customer_name)
 
 rewards_member = input("Are you a rewards member? (yes/no): ")
 if rewards_member.lower() == "yes":
-    is_member = True
+    is_member = "a member"
 else:
-    is_member = False
-
+    is_member = "not a member"
+print(f"You are {is_member}.")
 
 def show_menu(menu):
 # Loops through menu.items() and prints every item with its price.
     for item in menu.items():
         print(f"{item[0]}: ${item[1]:.2f}")
-        
+   ### quantity = int(input("How many  would you like to order? 0-5: ")) 
+
 show_menu(menu)
 
 
