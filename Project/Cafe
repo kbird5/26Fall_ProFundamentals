@@ -1,0 +1,47 @@
+cafe_name = "Python Café"
+tax_rate = 0.08
+
+menu = {
+    "espresso": 3.00,
+    "latte": 4.50,
+    "cappuccino": 4.25,
+    "mocha": 5.00,
+    "muffin": 2.50,
+    "croissant": 3.25,
+}
+
+order = []
+
+def greet(name):
+# Prints a welcome message with the café name and the customer's name, using an f-string.
+    print(f"Welcome to {cafe_name}, {name}!")
+
+customer_name = input("What is your name? ")
+greet(customer_name)
+
+rewards_member = input("Are you a rewards member? (yes/no): ")
+if rewards_member.lower() == "yes":
+    is_member = True
+else:
+    is_member = False
+
+
+def show_menu(menu):
+# Loops through menu.items() and prints every item with its price.
+    for item in menu.items():
+        print(f"{item[0]}: ${item[1]:.2f}")
+        
+show_menu(menu)
+
+
+# def show_order(order, menu):
+# If the order is empty, prints "Your order is empty." Otherwise prints each item with its price, then the number of items using len().
+
+# def calculate_subtotal(order, menu):
+# Loops through the order, adds up each item's price from the menu, and returns the total.
+
+# def get_discount(subtotal, is_member):
+# Returns the discount in dollars, using the discount rules below.
+
+# def print_receipt(name, order, menu, is_member):
+# Calls calculate_subtotal() and get_discount(), works out tax and the total, and prints the receipt.
