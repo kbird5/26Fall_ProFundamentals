@@ -33,12 +33,7 @@ def show_menu(menu):
     for item in menu.items():
         print(f"{item[0]}: ${item[1]:.2f}")
    ### quantity = int(input("How many {item} would you like to order? 0-5: ")) 
-
-#def show_order(order, menu):
-# Loops through the order, prints each item with its price, and prints the subtotal.
   
-
-
 
 while True:
     print("1. Show menu")
@@ -55,20 +50,27 @@ while True:
         if item in menu:
            # order.append(item)
           #  print(f"{item} has been added to your order.")
-          try:
-              qty = int(input(f"How many {item}s would you like to add? ")
-                        
+            qty_input = int(input(f"How many {item}s would you like to add? "))
+            if qty_input > 0 and qty_input <= 5:
+                qty = int(qty_input)
+                for _ in range(qty):
+                    order.append(item)
+                    print(f"Added {qty} {item} to your order.")         
         else:
             print(f"Sorry, {item} is not on the menu.")
+
     elif choice == "3":
         item = input("Enter the item you would like to remove: ")
         if item in order:
             order.remove(item)
-            print(f"{item} has been removed from your order.")
-    elif choice == "4":
-        show_order(order, menu)
-    elif choice == "5":
-        print_receipt(customer_name, order, menu, is_member)
+            print(f"1 {item} has been removed from your order.")
+
+    # elif choice == "4":
+    #    def show_order(order, menu):
+    # Loops through the order, prints each item with its price, and prints the subtotal.       
+
+    # elif choice == "5":
+    #   def  print_receipt(customer_name, order, menu, is_member)
 # def calculate_subtotal(order, menu):
 # Loops through the order, adds up each item's price from the menu, and returns the total.
 
