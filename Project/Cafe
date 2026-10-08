@@ -33,7 +33,7 @@ def show_menu(menu):
     for item in menu.items():
         print(f"{item[0]}: ${item[1]:.2f}")
    ### quantity = int(input("How many {item} would you like to order? 0-5: ")) 
-  
+
 
 while True:
     print("1. Show menu")
@@ -43,8 +43,10 @@ while True:
     print("5. Checkout")
 
     choice = input("Please select an option (1-5): ")
+
     if choice == "1":
         show_menu(menu)
+
     elif choice == "2":
         item = input("What would you like to add?: ").lower()
         if item in menu:
@@ -65,17 +67,61 @@ while True:
             order.remove(item)
             print(f"1 {item} has been removed from your order.")
 
-    # elif choice == "4":
-    #    def show_order(order, menu):
+    elif choice == "4":
+        def show_order(order, menu):
+           if not order:
+               print("Your order is empty.")
+           else:
+               print("---- Your Order ----")
+               for item in order:
+                   print(f"{item}: ${menu[item]:.2f}")
+        show_order(order, menu)
+
     # Loops through the order, prints each item with its price, and prints the subtotal.       
-
-    # elif choice == "5":
-    #   def  print_receipt(customer_name, order, menu, is_member)
-# def calculate_subtotal(order, menu):
+        
+    def calculate_subtotal(order, menu):
 # Loops through the order, adds up each item's price from the menu, and returns the total.
+        subtotal = 0.0
+        for item in order:
 
-# def get_discount(subtotal, is_member):
+            subtotal += menu[item]
+        return subtotal
+
+    def get_discount(subtotal, is_member):
 # Returns the discount in dollars, using the discount rules below.
+        if is_member and subtotal >= 20:
+            return subtotal * 0.15
+        elif is_member and subtotal >= 10:
+            return subtotal * 0.10
+        else:
+            return 0.00
+
 
 # def print_receipt(name, order, menu, is_member):
 # Calls calculate_subtotal() and get_discount(), works out tax and the total, and prints the receipt.
+    def  print_receipt(customer_name, order, menu, is_member):
+            subtotal = calculate_subtotal(order, menu)
+            discount = get_discount(subtotal, is_member)
+            discounted_subtotal = subtotal - discount
+            tax = discounted_subtotal * tax_rate
+            total = discounted_subtotal + tax
+
+            print(f"---- Receipt for {cafe_name} ----")
+            print(f"Customer: {customer_name}")
+            for item in order:
+                print(f"{item}: ${menu[item]:.2f}")
+            print(f"Subtotal: ${subtotal:.2f}")
+            print(f"Discount: -${discount:.2f}")
+            print(f"Tax: ${tax:.2f}")
+            print(f"Total: ${total:.2f}")
+
+    # elif choice == "5":
+    #     if len(order) == 0:
+    #         print("Your order is empty. Please add items before checking out.")
+
+    #     else:
+    #         print_receipt(customer_name, order, menu, is_member)
+    #         break
+    # else:
+    #     print("Please select a valid option (1-5).")
+    #     break
