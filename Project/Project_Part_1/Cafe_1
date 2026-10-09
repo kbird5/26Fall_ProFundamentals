@@ -22,8 +22,18 @@ customer_name = input("What is your name? ")
 greet(customer_name)
 #if rewards_member.lower() == "yes": setting rewards_member variable to input if the customer is a rewards member and setting is_member variable to True or False based on the input.
 rewards_member = input("Are you a rewards member? (yes/no): ")
-is_member = rewards_member.lower() == "yes"
-print(f"You are {'a member' if is_member else 'not a member'}.")
+is_member = False
+if rewards_member.lower() == "yes":
+    is_member = True
+    print("You are a member.")
+elif rewards_member.lower() == "no":
+    print("Would you like to become a member? (yes/no): ")
+    if input().lower() == "yes":
+        is_member = True
+        print("You are now a member.")
+    else:
+        is_member = False
+        print("You are not a member.")
 
 
 #setting show_menu(menu) function to loop through menu.items() and print every item with its price.
@@ -47,10 +57,11 @@ def get_discount(subtotal, is_member):
         return subtotal * 0.15
     elif is_member and subtotal >= 10:
         return subtotal * 0.10
+    elif not is_member and subtotal >= 25:
+        return subtotal * 0.05
     else:
-        return 0.00
-   
-   
+        return 0.0
+
    # def print_receipt(name, order, menu, is_member):
    # Calls calculate_subtotal() and get_discount(), works out tax and the total, and prints the receipt.
 #setting print_receipt(customer_name, order, menu, is_member) function to call calculate_subtotal() and get_discount(), work out tax and the total, and print the receipt.
@@ -126,6 +137,10 @@ while True:
             print("Your order is empty. Please add items before checking out.")
         else:
             print_receipt(customer_name, order, menu, is_member)
+            if is_member:
+                print(f"Thank you for being a member! Thanks for visiting, {customer_name}.")
+            if not is_member:
+                print(f"Would you like to become a member today, {customer_name}?")
             break
 
     else:

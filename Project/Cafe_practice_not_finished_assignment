@@ -22,9 +22,16 @@ greet(customer_name)
 rewards_member = input("Are you a rewards member? (yes/no): ")
 if rewards_member.lower() == "yes":
     is_member = "a member"
+    print(f"You are {is_member}.")
 else:
     is_member = "not a member"
-print(f"You are {is_member}.")
+
+if rewards_member.lower() == "no":
+    print(f"Would you like to become a member? (yes/no): ")
+    if input().lower() == "yes":
+        is_member = "a member"
+        print(f"You are now {is_member}.")
+
 
 
 
