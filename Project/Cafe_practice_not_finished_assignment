@@ -115,13 +115,13 @@ while True:
             print(f"Tax: ${tax:.2f}")
             print(f"Total: ${total:.2f}")
 
-    # elif choice == "5":
-    #     if len(order) == 0:
-    #         print("Your order is empty. Please add items before checking out.")
+    elif choice == "5":
+        if len(order) == 0:
+            print("Your order is empty. Please add items before checking out.")
 
-    #     else:
-    #         print_receipt(customer_name, order, menu, is_member)
-    #         break
-    # else:
-    #     print("Please select a valid option (1-5).")
-    #     break
+        else:
+            print_receipt(customer_name, order, menu, is_member)
+            break
+    #else:
+    #    print("Please select a valid option (1-5).")
+    #    break

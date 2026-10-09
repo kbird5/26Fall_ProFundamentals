@@ -7,6 +7,10 @@ def rectangle_stats(length, width):
 length = int(input("Enter the length of the rectangle: "))
 width = int(input("Enter the width of the rectangle: "))
 
+# to allow for decimal inputs use float instead of int added after assignment submitted so leaving commented
+# length = float(input("Enter the length of the rectangle: "))
+# width = float(input("Enter the width of the rectangle: "))
+
     #rect_area = length * width
     #rect_perimeter = 2 * length + width
 
