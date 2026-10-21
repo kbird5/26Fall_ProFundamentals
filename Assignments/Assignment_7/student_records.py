@@ -8,7 +8,6 @@ print("\nDone")
 
 #---Create the table---
 
-<<<<<<< HEAD
 cur.execute("DROP TABLE IF EXISTS StudentRecords")
 
 cur.execute("""
@@ -44,8 +43,3 @@ rows = cur.fetchall()
 for row in rows:
     print(row)
 
-=======
-cur.execute("DROP TABLE IF EXISTS student records")
-
-cur.execute
->>>>>>> e5cce4854313515af572eedcccdb2398ec73f830
