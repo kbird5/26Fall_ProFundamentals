@@ -31,8 +31,3 @@ data = [
 cur.executemany("INSERT INTO SensorData VALUES (?, ?, ?, ?)", data)
 conn.commit()
 print ("6 data values added")
-
-#2) Create a custom class named DatabaseManager that connects to an SQLite databased named sensor_data.db. The database must include a table with volumns for ID, timestamp, sensor type, and sensor reading value.
-
-class DatabaseManager:
-    pass
