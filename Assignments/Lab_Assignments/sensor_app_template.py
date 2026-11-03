@@ -45,7 +45,7 @@ class DatabaseManager:
              PRIMARY KEY (id))
         """)
         self.conn.commit()
-    print("the table is ready")        
+   # print("the table is ready")        
 
    
 # TODO 2: write the temperature function here (ask the board with "T",
@@ -61,8 +61,8 @@ def main():
     time.sleep(2)
     ser.reset_input_buffer()
 
-    # Demo only: read both sensors once and print them.
-    # TODO 4: replace this with the menu and the user-choice loop.
+# Demo only: read both sensors once and print them.
+# TODO 4: replace this with the menu and the user-choice loop.
     temperature = ask_board(ser, "T")
     humidity = ask_board(ser, "H")
     print(f"Temperature: {temperature:.1f} C")
