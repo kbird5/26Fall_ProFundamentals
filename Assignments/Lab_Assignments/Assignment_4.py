@@ -16,7 +16,7 @@ BAUD = 115200
 
 
 def ask_board(ser, command):
-    """Send a one-letter command to the board and return the number it replies with."""
+    #Send a one-letter command to the board and return the number it replies with.
     ser.reset_input_buffer()
     ser.write((command + "\n").encode())
     while True:
@@ -28,15 +28,16 @@ def ask_board(ser, command):
 
 
 class DatabaseManager:
-    """Create and manage a simple SQLite database for sensor readings."""
+    #Create and manage a simple SQLite database for sensor readings.
 
+#creates a database manager class that will handle the database operations
     def __init__(self, db_name="sensor_data.db"):
         self.conn = sqlite3.connect(db_name)
         self.cur = self.conn.cursor()
         self.create_table()
 
     def create_table(self):
-        self.cur.execute("DROP TABLE IF EXISTS SensorData")
+        self.cur.execute("DROP TABLE IF EXISTS SensorData") # removing old table so things can rerun
         self.cur.execute(
             """
             CREATE TABLE SensorData (
@@ -47,30 +48,31 @@ class DatabaseManager:
             )
             """
         )
-        self.conn.commit()
+        self.conn.commit() # commits the changes to the database
 
     def log_reading(self, sensor_type, value):
-        """Save one reading with the PC's current local date and time."""
+        #Save one reading with the PC's current local date and time.
         timestamp = datetime.now().isoformat(sep=" ", timespec="seconds")
         self.cur.execute(
             """INSERT INTO SensorData (timestamp, sensor_type, sensor_reading)
                VALUES (?, ?, ?)""",
             (timestamp, sensor_type, value),
         )
-        self.conn.commit()
+        self.conn.commit() # commits the changes to the database
 
     def view_history(self):
-        """Query and display every saved reading, oldest first."""
+        #Query and display every saved reading, oldest first.
         records = self.cur.execute(
             """SELECT id, timestamp, sensor_type, sensor_reading
                FROM SensorData
                ORDER BY id"""
-        ).fetchall()
+        ).fetchall() #fetches all the records from the database and stores them in a list 
 
+# if no records are found, it will print a message to the user and return from the function
         if not records:
-            print("No readings have been logged yet.")
+            print("No readings have been logged yet.") 
             return
-
+# if records are found, it will print the records in a formatted table with the appropriate units for temperature and humidity
         print("\nID | Timestamp | Sensor type | Reading")
         for record in records:
             record_id, timestamp, sensor_type, reading_value = record
@@ -78,19 +80,19 @@ class DatabaseManager:
             print(f"{record_id} | {timestamp} | {sensor_type} | {reading_value:.1f} {unit}")
 
     def close(self):
-        """Close the database connection."""
+        #Close the database connection.
         self.conn.close()
 
 
 def read_temperature(ser, database):
-    """Request, display, and log temperature only when called."""
+    #Request, display, and log temperature only when called.
     temperature = ask_board(ser, "T")
     print(f"Temperature: {temperature:.1f} C")
     database.log_reading("Temperature", temperature)
 
 
 def read_humidity(ser, database):
-    """Request, display, and log humidity only when called."""
+    #Request, display, and log humidity only when called.
     humidity = ask_board(ser, "H")
     print(f"Humidity: {humidity:.1f} %")
     database.log_reading("Humidity", humidity)
@@ -101,21 +103,21 @@ def main():
     time.sleep(2)
     ser.reset_input_buffer()
     database = DatabaseManager()
-
+# Setting up the menu for the user to choose from the following options
     print("Please choose from the following options:")
     print("T - Temperature")
     print("H - Humidity")
     print("0 - Both")
     print("V - View Log History")
     print("Q - Quit")
-
+# The program will run in a loop until the user chooses to quit. It will handle invalid inputs and allow the user to try again without exiting the program. The database connection and serial port connection will be closed properly when the program ends, either through user choice or a keyboard interrupt.
     try:
         while True:
             choice = input("\nEnter T, H, 0, V, or Q: ").strip().upper()
             if choice not in ("T", "H", "0", "V", "Q"):
                 print("Invalid choice, please try again.")
-                continue
-
+                continue #allows the user to try again without exiting the program
+# choices that provide the user with the option to read temperature, humidity, both, view log history, or quit the program. The appropriate function will be called based on the user's choice.
             if choice == "T":
                 read_temperature(ser, database)
             elif choice == "H":
@@ -131,8 +133,8 @@ def main():
     except KeyboardInterrupt:
         print("\nProgram ended.")
     finally:
-        database.close()
-        ser.close()
+        database.close() # closes the database connection
+        ser.close() #closes the program and the serial port connection to the board
 
 
 if __name__ == "__main__":
